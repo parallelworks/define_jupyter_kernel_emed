@@ -17,6 +17,7 @@ fi
 
 # Do not use a '.' character here!
 name=${partition}-$(basename ${path_to_sing})
+name=${name:0:19}
 
 # Make proxy configuration file:
 echo PARTITION=${partition} > ~/.ssh/${name}.env
