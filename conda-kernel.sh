@@ -8,6 +8,7 @@ conda_env=$2
 timeout=$3
 # Do not use a '.' character here!
 name=${partition}-${conda_env}
+name=${name:0:20}
 
 # Make proxy configuration file:
 echo PARTITION=${partition} > ~/.ssh/${name}.env

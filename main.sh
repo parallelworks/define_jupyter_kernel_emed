@@ -26,9 +26,11 @@ f_read_cmd_args $@
 
 # SELECT KERNEL SCRIPT
 if [[ ${kernel_type} == "conda" ]]; then
-    bash ${sdir}/conda-kernel.sh ${partition} ${conda_env}
+    bash ${sdir}/conda-kernel.sh ${partition} ${conda_env} ${timeout}
 elif [[ ${kernel_type} == "singularity" ]]; then
-    bash ${sdir}/singularity-kernel.sh ${partition} ${path_to_sing} ${mount_dirs} ${use_gpus}
+    bash ${sdir}/singularity-kernel.sh ${partition} ${path_to_sing} ${mount_dirs} ${use_gpus} ${timeout}
+elif [[ ${kernel_type} == "julia" ]]; then
+    bash ${sdir}/julia-kernel.sh ${partition} ${julia_version} ${timeout}
 else
     echod "ERROR: Kernel type ${kernel_type} is not yet supported!"
 fi

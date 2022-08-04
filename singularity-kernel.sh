@@ -8,6 +8,7 @@ partition=$1
 path_to_sing=$2
 mount_dirs=$(echo ${3} | sed "s/___/ /g")
 use_gpus=$4
+timeout=$5
 
 if [[ ${use_gpus} == "True" ]]; then
     gpu_flag="--nv"
@@ -17,7 +18,7 @@ fi
 
 # Do not use a '.' character here!
 name=${partition}-$(basename ${path_to_sing})
-name=${name:0:19}
+name=${name:0:20}
 
 # Make proxy configuration file:
 echo PARTITION=${partition} > ~/.ssh/${name}.env
