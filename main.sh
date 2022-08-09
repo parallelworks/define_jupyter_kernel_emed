@@ -31,6 +31,8 @@ elif [[ ${kernel_type} == "singularity" ]]; then
     bash ${sdir}/singularity-kernel.sh ${partition} ${path_to_sing} ${mount_dirs} ${use_gpus} ${timeout}
 elif [[ ${kernel_type} == "julia" ]]; then
     bash ${sdir}/julia-kernel.sh ${partition} ${julia_version} ${timeout}
+elif [[ ${kernel_type} == "r" ]]; then
+    bash ${sdir}/r-kernel.sh ${partition} ${r_module} ${timeout}
 else
     echod "ERROR: Kernel type ${kernel_type} is not yet supported!"
 fi

@@ -4,10 +4,11 @@ sdir=$(dirname $0)
 
 # INPUTS:
 partition=$1
-julia_version=$2
+r_module=$2
 timeout=$3
 # Do not use a '.' character here!
-name=${partition}-julia-${julia_version}
+r_version=$(basename ${r_module})
+name=${partition}-r-${r_version}
 name=${name:0:20}
 name=$(echo ${name} | sed "s/\.//g")
 
@@ -15,12 +16,9 @@ name=$(echo ${name} | sed "s/\.//g")
 echo PARTITION=${partition} > ~/.ssh/${name}.env
 echo TIMEOUT=${timeout} >> ~/.ssh/${name}.env
 
-
 # REMOTE KERNEL COMMAND
-julia_bin=/public/apps/julia/julia-${julia_version}/bin/julia
-julia_kernel=/public/apps/julia/julia-${julia_version}/packages/packages/IJulia/AQu2H/src/kernel.jl
-
-kernel_cmd="module load julia/${julia_version}; ${julia_bin} -i --color=yes --project=@. ${julia_kernel} {connection_file}"
+pre_cmd="module load conda3/4.10.3; conda activate base; module load ${r_module}"
+kernel_cmd="${pre_cmd}; R --slave -e IRkernel::main() --args {connection_file}"
 echo Remote kernel command:
 echo ${kernel_cmd}
 
